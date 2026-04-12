@@ -16,13 +16,14 @@ const Navbar = () => {
         <a href="#tech" className="hover:text-blue-500 transition-colors">Teknologi</a>
         <a href="#developer" className="hover:text-blue-500 transition-colors">Pengembang</a>
       </div>
+
       <div className="flex-1 flex items-center justify-end gap-4 font-semibold text-sm text-slate-400 uppercase tracking-widest">
         <Link 
-          to="/dashboard" 
+          to="/login"
           className="bg-white text-slate-900 px-5 py-2.5 rounded-2xl hover:bg-blue-500 hover:text-white transition-all font-bold"
         >Masuk</Link>
         <Link 
-          to="/dashboard" 
+          to="/register" 
           className="bg-white text-slate-900 px-5 py-2.5 rounded-2xl hover:bg-blue-500 hover:text-white transition-all font-bold"
         >Daftar</Link>
       </div>
