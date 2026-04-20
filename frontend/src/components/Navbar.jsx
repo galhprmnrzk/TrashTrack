@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import Logo from './Logo';
 
 const Navbar = () => {
+  const handleScrollTo = (e, id) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (!el) return;
+    window.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+  };
+
   return (
     <nav className="flex items-center justify-between px-8 md:px-20 py-8 bg-transparent absolute top-0 w-full z-50">
       {/* Logo */}
@@ -12,9 +19,9 @@ const Navbar = () => {
 
       {/* Nav */}
       <div className="hidden md:flex flex-none items-right gap-10 font-semibold text-sm text-slate-400 uppercase tracking-widest">
-        <a href="#about" className="hover:text-blue-500 transition-colors">Tentang</a>
-        <a href="#tech" className="hover:text-blue-500 transition-colors">Teknologi</a>
-        <a href="#developer" className="hover:text-blue-500 transition-colors">Pengembang</a>
+        <a href="#about" onClick={(e) => handleScrollTo(e, 'about')} className="hover:text-blue-500 transition-colors">Tentang</a>
+        <a href="#tech" onClick={(e) => handleScrollTo(e, 'tech')} className="hover:text-blue-500 transition-colors">Teknologi</a>
+        <a href="#developer" onClick={(e) => handleScrollTo(e, 'developer')} className="hover:text-blue-500 transition-colors">Pengembang</a>
       </div>
 
       <div className="flex-1 flex items-center justify-end gap-4 font-semibold text-sm text-slate-400 uppercase tracking-widest">

@@ -79,7 +79,7 @@ const LandingPage = () => {
           <p className="text-slate-400 text-center mx-auto text-lg md:text-xl leading-[1.6] max-w-2xl mb-8">
             Pantau kapasitas sampah, kondisi perangkat, dan lokasi tempat sampah secara real-time dengan platform monitoring IoT yang cerdas.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-2xl mx-auto mb-12">
-            <Link to="/home" className="flex-1 flex items-center justify-center gap-3 bg-blue-600 text-white px-10 py-3 rounded-[24px] font-semibold text-lg hover:bg-blue-700 hover:flex-2 duration-300 transition-all shadow-2xl shadow-blue-900/40">
+            <Link to="/login" className="flex-1 flex items-center justify-center gap-3 bg-blue-600 text-white px-10 py-3 rounded-[24px] font-semibold text-lg hover:bg-blue-700 hover:flex-2 duration-300 transition-all shadow-2xl shadow-blue-900/40">
               Coba Sekarang <ArrowRight size={20} />
             </Link>
             <Link to="/help" className="flex-1 flex items-center justify-center px-10 py-3 rounded-[24px] font-semibold text-lg border border-slate-800 bg-slate-900/50 hover:bg-slate-800 hover:flex-2 duration-300 transition-all text-slate-300">
@@ -90,7 +90,7 @@ const LandingPage = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="px-8 md:px-20 py-20 relative overflow-hidden scroll-mt-8">
+      <section id="about" className="px-8 md:px-20 py-20 relative overflow-hidden scroll-mt-20">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             
@@ -136,7 +136,7 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-16"   >
+        <div className="max-w-7xl mx-auto mt-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-14">
             <div className="bg-slate-900/50 p-10 rounded-[40px] border border-slate-800 hover:border-blue-500/50 transition-all group">
               <div className="bg-blue-500/10 text-blue-500 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
@@ -164,7 +164,7 @@ const LandingPage = () => {
       </section>
 
       {/* Teknologi Section */}
-      <section id="tech" className="py-24 scroll-mt-12">
+      <section id="tech" className="py-24 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-8">
           <p className="text-center text-sm font-semibold text-slate-600 uppercase tracking-[0.4em] mb-16">
             Dibangun dengan Teknologi Modern
@@ -190,7 +190,7 @@ const LandingPage = () => {
       </section>
 
       {/* Developer Section */}
-      <section id="developer" className="px-8 py-20 scroll-mt-10">
+      <section id="developer" className="px-8 py-20 scroll-mt-20">
         <div className="bg-slate-900/50 rounded-[60px] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-blue-900/20">
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
           
