@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Eye, EyeOff, LogIn, ArrowRight, User } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -22,11 +22,23 @@ const LoginPage = () => {
     }
     setIsLoading(true);
     try {
-      // TODO: Replace with actual auth logic (e.g. Supabase)
-      await new Promise((res) => setTimeout(res, 1200));
-      navigate('/home');
+      const { data, error: dbError } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', formData.username)
+        .eq('password', formData.password)
+        .single();
+
+      if (dbError || !data) {
+        setError('Username atau password salah. Coba lagi.');
+        return;
+      }
+
+      localStorage.setItem('user', JSON.stringify(data));
+      window.location.href = '/home';
+
     } catch (err) {
-      setError('Username atau password salah. Coba lagi.');
+      setError('Terjadi kesalahan. Coba lagi.');
     } finally {
       setIsLoading(false);
     }
@@ -60,10 +72,10 @@ const LoginPage = () => {
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
-            {/* Username */}
+            {/* Email */}
             <div className="flex flex-col gap-2">
               <label htmlFor="username" className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-                Username
+                Email
               </label>
               <div className="relative">
                 <User size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
@@ -72,7 +84,7 @@ const LoginPage = () => {
                   name="username"
                   type="text"
                   autoComplete="username"
-                  placeholder="Masukkan username"
+                  placeholder="Masukkan email"
                   value={formData.username}
                   onChange={handleChange}
                   className="w-full bg-slate-800/60 border border-slate-700/60 rounded-2xl pl-10 pr-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-600/60 focus:border-blue-600/40 transition-all"
@@ -86,13 +98,12 @@ const LoginPage = () => {
                 <label htmlFor="password" className="text-xs font-semibold uppercase tracking-widest text-slate-400">
                   Password
                 </label>
-                <a
-                  href="#"
+                <button
+                  type="button"
                   className="text-xs text-blue-500 hover:text-blue-400 transition-colors font-medium"
-                  onClick={(e) => e.preventDefault()}
                 >
                   Lupa password?
-                </a>
+                </button>
               </div>
               <div className="relative">
                 <input

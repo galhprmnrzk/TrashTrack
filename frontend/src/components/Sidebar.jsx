@@ -1,14 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Logo from './Logo'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Home as HomeIcon, Bell, History, Settings, Cpu, LogOut, User, ChevronUp } from 'lucide-react';
 
 const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
+    const stored = localStorage.getItem('user');
+    if (stored) setUser(JSON.parse(stored));
+
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsProfileOpen(false);
@@ -18,7 +23,13 @@ const Sidebar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const menuItems = [
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setIsProfileOpen(false);
+    navigate('/login');
+  };
+
+  const adminMenuItems = [
     { name: 'Beranda', path: '/home', icon: <HomeIcon size={20} /> },
     { name: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard size={20} /> },
     { name: 'Notifikasi', path: '/alerts', icon: <Bell size={20} /> },
@@ -26,6 +37,15 @@ const Sidebar = () => {
     { name: 'Perangkat', path: '/device', icon: <Cpu size={20} /> },
     { name: 'Sistem', path: '/system', icon: <Settings size={20} /> },
   ];
+
+  const userMenuItems = [
+    { name: 'Beranda', path: '/home', icon: <HomeIcon size={20} /> },
+    { name: 'Dashboard', path: '/dashboard', icon: <LayoutDashboard size={20} /> },
+    { name: 'Notifikasi', path: '/alerts', icon: <Bell size={20} /> },
+    { name: 'Riwayat', path: '/history', icon: <History size={20} /> },
+  ];
+
+  const menuItems = user?.role === 'admin' ? adminMenuItems : userMenuItems;
 
   return (
     <div className="w-64 bg-slate-900 text-white flex flex-col h-screen relative">
@@ -39,7 +59,7 @@ const Sidebar = () => {
 
       {/* Navigasi */}
       <nav className="flex-1 px-4 space-y-1">
-      <hr className="border-slate-400 w-full mb-4"/>
+        <hr className="border-slate-400 w-full mb-4"/>
         {menuItems.map((item) => (
           <Link
             key={item.path}
@@ -70,13 +90,12 @@ const Sidebar = () => {
               <User size={16} /> Lihat Profil
             </Link>
             <div className="h-[1px] bg-slate-700 my-1 mx-4"></div>
-            <Link 
-              to="/" 
-              className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-red-400 hover:bg-red-500/10 transition-colors"
-              onClick={() => setIsProfileOpen(false)}
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-red-400 hover:bg-red-500/10 transition-colors"
             >
               <LogOut size={16} /> Logout
-            </Link>
+            </button>
           </div>
         )}
 
@@ -90,14 +109,16 @@ const Sidebar = () => {
           <div className="flex items-center gap-3 overflow-hidden">
             <div className="relative flex-shrink-0">
               <img 
-                src="https://ui-avatars.com/api/?name=Admin+Trash&background=0D8ABC&color=fff" 
+                src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.nama || 'User')}&background=0D8ABC&color=fff`}
                 alt="User" 
                 className="w-9 h-9 rounded-full border border-slate-700"
               />
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-slate-900 rounded-full"></span>
             </div>
             <div className="flex flex-col text-left overflow-hidden">
-              <span className="text-xs font-bold text-white truncate text-ellipsis">Admin TrashTrack</span>
+              <span className="text-xs font-bold text-white truncate text-ellipsis">
+                {user?.nama || 'User'}
+              </span>
               <span className="text-[9px] text-slate-500 uppercase font-black tracking-widest">Online</span>
             </div>
           </div>
