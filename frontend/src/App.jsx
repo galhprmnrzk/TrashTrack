@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 // Layouts - File asli di sidebar: mainlayout.jsx (m kecil)
-import MainLayout from "./layouts/mainlayout.jsx";
+import MainLayout from "./layouts/MainLayout.jsx";
 
 // Pages - Menyesuaikan dengan nama file di sidebar kiri kamu
 import Home from './pages/LandingPage'; // Kamu menggunakan LandingPage sebagai Home di sidebar
@@ -13,7 +13,7 @@ import DevicePage from './pages/Device';
 import SystemPage from './pages/System';
 import LandingPage from './pages/LandingPage';
 import HelpPage from './pages/Help';
-import LoginPage from './pages/login';    // File asli: login.jsx (l kecil)
+import LoginPage from './pages/Login';    // File asli: login.jsx (l kecil)
 import RegisterPage from './pages/Daftar'; // File asli: Daftar.jsx (D besar)
 import ProfilePage from './pages/Profile';
 
