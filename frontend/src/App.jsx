@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-// Layouts
-import MainLayout from "./layouts/MainLayout.jsx";
+// Layouts - File asli di sidebar: mainlayout.jsx (m kecil)
+import MainLayout from "./layouts/mainlayout.jsx";
 
-// Pages
-import Home from './pages/Home';
+// Pages - Menyesuaikan dengan nama file di sidebar kiri kamu
+import Home from './pages/LandingPage'; // Kamu menggunakan LandingPage sebagai Home di sidebar
 import Dashboard from './pages/Dashboard';
 import AlertPage from './pages/Alert';
 import HistoryPage from './pages/History';
@@ -13,8 +13,8 @@ import DevicePage from './pages/Device';
 import SystemPage from './pages/System';
 import LandingPage from './pages/LandingPage';
 import HelpPage from './pages/Help';
-import LoginPage from './pages/Login';
-import RegisterPage from './pages/Daftar';
+import LoginPage from './pages/login';    // File asli: login.jsx (l kecil)
+import RegisterPage from './pages/Daftar'; // File asli: Daftar.jsx (D besar)
 import ProfilePage from './pages/Profile';
 
 // Ambil data user dari localStorage
