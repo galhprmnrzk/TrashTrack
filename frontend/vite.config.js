@@ -4,14 +4,15 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', 
+  base: './', // Ganti dari '/' menjadi './' untuk path relatif yang lebih aman
   resolve: {
     alias: {
-      // Menggunakan path.join dan __dirname agar aman di Linux/Vercel
       '@': path.resolve(__dirname, './src'),
     },
   },
   build: {
     outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true,
   }
 })
