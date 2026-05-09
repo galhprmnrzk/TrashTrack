@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 // Layouts
-import MainLayout from './layouts/MainLayout.jsx';
+import MainLayout from "./layouts/MainLayout.jsx";
 
 // Pages
 import Home from './pages/Home';
