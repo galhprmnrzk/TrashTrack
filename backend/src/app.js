@@ -6,8 +6,8 @@ require('dotenv').config();
 const apiRoutes = require('./routes/api');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
+// Konfigurasi CORS agar aman
 app.use(cors());
 app.use(express.json());
 
@@ -19,7 +19,14 @@ app.get('/', (req, res) => {
   res.json({ message: "Server TrashTrack Aktif!" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server jalan di http://localhost:${PORT}`);
-  console.log(`Coba akses: http://localhost:${PORT}/api/dashboard`);
-});
+// PENTING UNTUK VERCEL: 
+// Hanya jalankan app.listen jika di lingkungan lokal (development)
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server jalan di http://localhost:${PORT}`);
+  });
+}
+
+// WAJIB ADA: Ekspor app agar Vercel bisa mengenalinya sebagai fungsi backend
+module.exports = app;
