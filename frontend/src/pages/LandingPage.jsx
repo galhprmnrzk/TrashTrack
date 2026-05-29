@@ -6,7 +6,7 @@ import Logo from '../components/Logo';
 
 const DeveloperAvatar = ({ photoUrl, name }) => {
   const [imageError, setImageError] = useState(false);
-  const avatarClass = "shrink-0 w-28 h-auto rounded-full overflow-hidden relative z-20";
+  const avatarClass = "shrink-0 w-20 h-20 sm:w-28 sm:h-auto rounded-full overflow-hidden relative z-20";
 
   if (photoUrl && !imageError) {
     return (
@@ -24,7 +24,7 @@ const DeveloperAvatar = ({ photoUrl, name }) => {
 
   return (
     <div className={`${avatarClass} bg-slate-800 flex items-center justify-center`}>
-      <span className="text-4xl font-black text-white">{name.charAt(0)}</span>
+      <span className="text-2xl sm:text-4xl font-black text-white">{name.charAt(0)}</span>
     </div>
   );
 };
@@ -61,7 +61,14 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="bg-slate-950 text-white font-sans overflow-x-hidden min-h-screen">
+    <div className="bg-slate-950 text-white font-sans overflow-x-hidden min-h-screen [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      
+      {/* STYLE INJECTOR - Menghilangkan scrollbar browser murni */}
+      <style>{`
+        ::-webkit-scrollbar { display: none !important; }
+        html, body { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
+
       <Navbar />
 
       {/* Hero Section */}
@@ -201,28 +208,29 @@ const LandingPage = () => {
               <p className="text-blue-100/50 font-regular text-lg">Tim pengembang di balik sistem monitoring TrashTrack.</p>
             </div>
 
-            {/* Card */}
+            {/* Card - Diubah jadi min-h agar dinamis di mobile, h-[280px] tetap aman di desktop */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {developers.map((dev, index) => (
-                <div key={index} className="group relative bg-slate-950/40 p-10 rounded-[48px] border border-white/5 h-[280px] flex items-center transition-all duration-1200 overflow-hidden">
+                <div key={index} className="group relative bg-slate-950/40 p-6 sm:p-10 rounded-[48px] border border-white/5 min-h-[160px] md:h-[280px] flex items-center transition-all duration-1200 overflow-hidden">
                   
-                  <div className="flex items-center gap-8 transition-all duration-500 ">
+                  {/* Container Flex dengan gap yang mengecil di mobile agar muat */}
+                  <div className="flex items-center gap-4 sm:gap-8 transition-all duration-500 w-full">
                     
                     {/* Photo */}
                     <DeveloperAvatar photoUrl={dev.photoUrl} name={dev.name} />
                     
-                    {/* Name */}
-                    <div className="flex flex-col flex-1">
-                      <h3 className="text-xl lg:text-2xl font-bold leading-none transition-all group-hover:text-blue-400">
+                    {/* Name & Role */}
+                    <div className="flex flex-col flex-1 min-w-0">
+                      <h3 className="text-lg lg:text-2xl font-bold leading-tight transition-all group-hover:text-blue-400 truncate sm:whitespace-normal">
                         {dev.name}
                       </h3>
-                      <p className="text-blue-400 font-semibold text-[12px] uppercase tracking-[0.3em] mt-1 transition-all group-hover:text-white">
+                      <p className="text-blue-400 font-semibold text-[10px] sm:text-[12px] uppercase tracking-[0.3em] mt-1 transition-all group-hover:text-white">
                         {dev.role}
                       </p>
 
-                      {/* Desc */}
-                      <div className="max-h-0 opacity-0 overflow-hidden transition-all duration-600 group-hover:max-h-32 group-hover:opacity-100 group-hover:mt-1 ">
-                        <p className="text-slate-400 text-s leading-relaxed font-regular ">
+                      {/* Desc - Ditambahkan `md:max-h-0` agar efek transisi hanya untuk desktop, sedangkan di mobile teks langsung menyesuaikan diri tanpa merusak layout */}
+                      <div className="max-h-32 opacity-100 md:max-h-0 md:opacity-0 overflow-hidden transition-all duration-600 group-hover:max-h-32 group-hover:opacity-100 group-hover:mt-1">
+                        <p className="text-slate-400 text-xs sm:text-s leading-relaxed font-regular mt-1 md:mt-0">
                           {dev.desc}
                         </p>
                       </div>
