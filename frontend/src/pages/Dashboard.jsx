@@ -39,6 +39,32 @@ const getSignalDetails = (rssi) => {
 const Dashboard = () => {
   const [device, setDevice] = useState(null);
   const [loading, setLoading] = useState(true);
+  const handleRequestEmptying = async () => {
+  try {
+    const response = await fetch('http://localhost:5000/api/request-emptying', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        binName: device.devices?.device_code,
+        location: device.devices?.lokasi,
+        capacity: device.persen,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert('Permintaan pengosongan berhasil dikirim ke Telegram');
+    } else {
+      alert('Gagal mengirim permintaan');
+    }
+  } catch (error) {
+    console.error(error);
+    alert('Terjadi kesalahan');
+  }
+};
 
   useEffect(() => {
     fetchData();
@@ -228,6 +254,7 @@ const Dashboard = () => {
 
             <div className="mt-6 space-y-4">
               <button 
+                onClick={handleRequestEmptying}
                 disabled={device.persen < 50}
                 className={`w-full py-4 rounded-[24px] font-semibold tracking-wider text-xs flex items-center justify-center gap-3 transition-all shadow-xl ${
                   device.persen >= 50 
